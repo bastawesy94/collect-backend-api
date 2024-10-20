@@ -9,8 +9,7 @@ const contact_service_1 = require("../services/contact.service");
 const contactService = new contact_service_1.ContactService();
 async function createContact(req, res) {
     try {
-        const userKey = req.body.userKey; // This will work now that we've extended the Request interface
-        const contact = await contactService.createContact(userKey, req.body);
+        const contact = await contactService.createContact(req.body);
         res.status(201).json(contact);
     }
     catch (error) {
@@ -19,9 +18,8 @@ async function createContact(req, res) {
 }
 async function updateContact(req, res) {
     try {
-        const userKey = req.body.userKey;
-        const contactId = req.params.contactId;
-        const updatedContact = await contactService.updateContact(userKey, contactId, req.body);
+        const contactKey = req.params.key;
+        const updatedContact = await contactService.updateContact(contactKey, req.body);
         res.status(200).json(updatedContact);
     }
     catch (error) {
@@ -30,9 +28,8 @@ async function updateContact(req, res) {
 }
 async function deleteContact(req, res) {
     try {
-        const userKey = req.body.user?.key;
-        const contactId = req.params.contactId;
-        await contactService.deleteContact(userKey, contactId);
+        const contactKey = req.params.key;
+        await contactService.deleteContact(contactKey);
         res.status(204).send();
     }
     catch (error) {
@@ -41,9 +38,8 @@ async function deleteContact(req, res) {
 }
 async function getContactByKey(req, res) {
     try {
-        const userKey = req.body.user?.key;
-        const contactId = req.params.contactId;
-        const contact = await contactService.getContactById(userKey, contactId);
+        const contactKey = req.params.key;
+        const contact = await contactService.getContactByKey(contactKey);
         res.status(200).json(contact);
     }
     catch (error) {
@@ -52,9 +48,8 @@ async function getContactByKey(req, res) {
 }
 async function searchContacts(req, res) {
     try {
-        const userKey = req.body.user?.key;
         const options = req.body;
-        const contacts = await contactService.searchContacts(userKey, options);
+        const contacts = await contactService.searchContacts(options);
         res.status(200).json(contacts);
     }
     catch (error) {

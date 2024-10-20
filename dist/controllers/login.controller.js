@@ -28,19 +28,19 @@ const jwt = __importStar(require("jsonwebtoken"));
 const bcrypt_1 = require("bcrypt");
 // Hardcoded users
 const users = [
-    { key: 'test-key1', username: 'user1', password: (0, bcrypt_1.hashSync)('user1pass', 10) },
-    { key: 'test-key2', username: 'user2', password: (0, bcrypt_1.hashSync)('user2pass', 10) },
+    { key: "test-key1", username: "user1", password: (0, bcrypt_1.hashSync)("user1pass", 10) },
+    { key: "test-key2", username: "user2", password: (0, bcrypt_1.hashSync)("user2pass", 10) },
 ];
 // Login controller
 const login = async (req, res) => {
     const { username, password } = req.body;
     // Find user by username
-    const user = users.find(u => u.username === username);
+    const user = users.find((u) => u.username === username);
     // Check if user exists and password is valid
     if (user && (0, bcrypt_1.compareSync)(password, user.password)) {
-        const token = jwt.sign({ username: user.username, key: user.key }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ username: user.username, key: user.key }, process.env.JWT_SECRET, { expiresIn: "1h" });
         return res.status(200).json({ token });
     }
-    return res.status(401).json({ message: 'Invalid credentials' });
+    return res.status(401).json({ message: "Invalid credentials" });
 };
 exports.login = login;
