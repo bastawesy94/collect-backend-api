@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist",       // Output directory for compiled files
+      "rootDir": "./src",       // Root directory for TypeScript files
+      "module": "CommonJS",     // Compile modules to CommonJS (require statements)
+      "target": "ES2020",       // Target ECMAScript version
+      "esModuleInterop": true,  // Enable compatibility between CommonJS and ESModules
+      "strict": true,           // Enable strict type checking
+      "moduleResolution": "node", // Ensure Node.js style resolution for modules
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+    },
+    "typeRoots": [
+        "./node_modules/@types",
+        "./src/types" // Add this line
+    ],
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
+  

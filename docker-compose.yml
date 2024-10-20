@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  mongo-db:
+    image: mongo:4.4
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db-data:/data/db
+    networks:
+      - shared_network
+
+  collect-service:
+    build: .
+    container_name: collect-service
+    depends_on:
+      - mongo-db
+    ports:
+      - "3030:3030"
+    networks:
+      - shared_network
+    environment:
+      - BD_URL=mongodb://mongo-db:27017/collect-service
+      - JWT_SECRET=mySuperSecretKey
+
+volumes:
+  mongo-db-data:
+
+networks:
+  shared_network:
+    external: true
